@@ -8,7 +8,6 @@ import { Container, Grid2, Card, CardContent, Typography, Button, IconButton, Li
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import SearchBar from '../components/SearchBar';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import CommentIcon from '@mui/icons-material/Comment';
 import DeleteIcon from '@mui/icons-material/Delete'
 import Comment from './Comment';
 import "../styles/global.css";

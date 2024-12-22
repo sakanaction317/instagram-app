@@ -13,7 +13,7 @@ const Comment = ({ postId }) => {
     const [comments, setComments] = useState([]);
     const [open, setOpen] = useState(false);
 
-    const handleCommentSubmit = async(e) => {
+    const handleCommentSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
             await addDoc(collection(db, "comments"),{
