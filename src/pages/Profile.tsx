@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { auth, db } from "../firebaseConfig";
 import { updatePassword, updateProfile } from "firebase/auth";
-import { Container, TextField, Button, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Avatar, Box } from "@mui/material";
+import { Container, TextField, Button, Typography, Dialog, DialogTitle, DialogContent, Avatar, Box } from "@mui/material";
 import { collection, query, where, doc ,getDocs, getDoc ,updateDoc, setDoc } from "firebase/firestore";
 import "../styles/global.css";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
@@ -11,11 +11,10 @@ import PostAddIcon from '@mui/icons-material/PostAdd';
 
 
 const Profile = () => {
-    const [displayName, setDisplayName] = useState(auth.currentUser?.displayName || '');
-    const [email, setEmail] = useState(auth.currentUser?.email || '');
-    const [postCount, setPostCount] = useState(0);
-    const [open, setOpen] = useState(false);
-    const [password, setPassword] = useState("");
+    const [displayName, setDisplayName] = useState<string>(auth.currentUser?.displayName || '');
+    const [postCount, setPostCount] = useState<number>(0);
+    const [open, setOpen] = useState<boolean>(false);
+    const [password, setPassword] = useState<string>("");
 
 useEffect(() => {
     if (auth.currentUser) {
@@ -23,24 +22,23 @@ useEffect(() => {
     }
 }, []);
 
-const fetchUserData = async(userId) => {
+const fetchUserData = async(userId: string) => {
     const userRef = doc(db, 'users', userId);
     const userDoc = await getDoc(userRef);
     if (userDoc.exists()) {
         const userData = userDoc.data();
         setDisplayName(userData.displayName || '');
-        setEmail(userData.email || '');
         fetchPostCount(userId);
     }else{
         console.log("No such document");
         await setDoc(userRef, {
-            displayName: auth.currentUser.displayName,
-            email: auth.currentUser.email
+            displayName: auth.currentUser!.displayName,
+            email: auth.currentUser!.email
         });
     }
 };
 
-const fetchPostCount = async(userId) => {
+const fetchPostCount = async(userId: string) => {
     const postCollection = collection(db, "posts");
     const q = query(postCollection, where('userId', '==', userId));
     const querySnapshot = await getDocs(q);
@@ -94,7 +92,6 @@ return (
                 プロフィールを編集
             </Button>
         </Box>
-       
 
         <Dialog open={open} onClose={handleClose}>
             <DialogTitle>プロフィールを編集</DialogTitle>

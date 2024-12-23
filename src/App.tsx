@@ -13,12 +13,12 @@ import Search from './pages/Search';
 import Signup from './pages/Signup';
 import LoginedUser from './pages/LoginedUser';
 import { auth } from './firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
 const drawerWidth = 50;
 
 const App = () => {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
