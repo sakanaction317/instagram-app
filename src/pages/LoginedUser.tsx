@@ -1,6 +1,6 @@
 //src/pages/LoginedUser
 
-import React, {useState, useEffect } from "react";
+import {useState, useEffect } from "react";
 import { Typography, Box, Link } from "@mui/material";
 import { auth } from "../firebaseConfig";
 import { onAuthStateChanged, User } from "firebase/auth";

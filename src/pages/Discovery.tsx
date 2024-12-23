@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { db, auth } from "../firebaseConfig";
 import { Container, Card, CardContent, Typography, Button, Grid } from "@mui/material";
 import { Post } from "../models/Post";

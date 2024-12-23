@@ -1,6 +1,6 @@
 // src/pages/Search.tsx
 
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import SearchBar from "../components/SearchBar";
 import { Container, Grid, Card, CardContent, Typography, Button } from "@mui/material";
 import { collection, doc, getDocs , updateDoc, arrayUnion } from "firebase/firestore";

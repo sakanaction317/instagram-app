@@ -1,6 +1,6 @@
 // src/pages/Signup.tsx
 
-import React, {useState} from "react";
+import {useState} from "react";
 import { auth, db } from "../firebaseConfig";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { Container, TextField, Button, Typography } from "@mui/material";

@@ -1,6 +1,6 @@
 // src/pages/Profile.tsx
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { auth, db } from "../firebaseConfig";
 import { updatePassword, updateProfile } from "firebase/auth";
 import { Container, TextField, Button, Typography, Dialog, DialogTitle, DialogContent, Avatar, Box } from "@mui/material";
@@ -16,34 +16,38 @@ const Profile = () => {
     const [open, setOpen] = useState<boolean>(false);
     const [password, setPassword] = useState<string>("");
 
+    const fetchPostCount = async(userId: string) => {
+        const postCollection = collection(db, "posts");
+        const q = query(postCollection, where('userId', '==', userId));
+        const querySnapshot = await getDocs(q);
+        setPostCount(querySnapshot.size);
+    };
+
+    const fetchUserData = useCallback(async(userId: string) => {
+        const userRef = doc(db, 'users', userId);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setDisplayName(userData.displayName || '');
+            fetchPostCount(userId);
+        }else{
+            console.log("No such document");
+            await setDoc(userRef, {
+                displayName: auth.currentUser!.displayName,
+                email: auth.currentUser!.email
+            });
+        }
+    }, []);
+
 useEffect(() => {
     if (auth.currentUser) {
         fetchUserData(auth.currentUser.uid);
     }
-}, []);
+}, [fetchUserData]);
 
-const fetchUserData = async(userId: string) => {
-    const userRef = doc(db, 'users', userId);
-    const userDoc = await getDoc(userRef);
-    if (userDoc.exists()) {
-        const userData = userDoc.data();
-        setDisplayName(userData.displayName || '');
-        fetchPostCount(userId);
-    }else{
-        console.log("No such document");
-        await setDoc(userRef, {
-            displayName: auth.currentUser!.displayName,
-            email: auth.currentUser!.email
-        });
-    }
-};
 
-const fetchPostCount = async(userId: string) => {
-    const postCollection = collection(db, "posts");
-    const q = query(postCollection, where('userId', '==', userId));
-    const querySnapshot = await getDocs(q);
-    setPostCount(querySnapshot.size);
-};
+
+
 
 const handleUpdate = async(e: React.FormEvent) => {
     e.preventDefault();
