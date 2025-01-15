@@ -12,6 +12,7 @@ import Discovery from './pages/Discovery';
 import Search from './pages/Search';
 import Signup from './pages/Signup';
 import LoginedUser from './pages/LoginedUser';
+import OtherProfile from './pages/OtherProfile';
 import { auth } from './firebaseConfig';
 import { onAuthStateChanged, User } from 'firebase/auth';
 
@@ -50,6 +51,7 @@ const App = () => {
             <Route path='/discovery' element={user ? <Discovery /> : <Navigate to="/login" />} />
             <Route path='/search' element={user ? <Search /> : <Navigate to="/login" />} />
             <Route path='/signup' element={user ? <Navigate to="/" /> : <Signup />} />
+            <Route path='/profile/:userId' element={user ? <OtherProfile/> : <Navigate to="/login"/>} />
             <Route path="*" element={<Navigate to={user ? "/" : "/login"} />}></Route>
           </Routes>
         </Container>

@@ -6,6 +6,7 @@ import { collection, getDocs, query, orderBy, limit, arrayUnion, doc, updateDoc,
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { onAuthStateChanged, User } from "firebase/auth";
 import Comment from "./Comment";
+import { Link } from "react-router-dom";
 import "../styles/global.css";
 
 interface UserData {
@@ -131,7 +132,10 @@ const Discovery = () => {
                                     {post.caption}
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary">
-                                    Posted by: {users[post.userId]?.displayName || 'Unknown User'}
+                                    Posted by: 
+                                        <Link to={`/profile/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            {users[post.userId]?.displayName || 'Unknown User'}
+                                        </Link>
                                 </Typography>
                                 <div style={{ display: 'flex', alignItems: 'left', marginTop: '10px' }}>
                                     <Button onClick={() => handleLike(post.id)} style={{ color: 'red', marginLeft: '10px' }}>

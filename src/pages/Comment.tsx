@@ -65,15 +65,18 @@ const Comment = ({ postId }: CommentProps) => {
                 <CommentIcon />
             </IconButton>
             <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
-                <DialogTitle>コメントを追加</DialogTitle>
-                <form onSubmit={handleCommentSubmit}>
-                <TextField 
+                <DialogTitle style={{ marginLeft: '20px' }}>コメントを追加</DialogTitle>
+                <form onSubmit={handleCommentSubmit} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                    <TextField 
                     label="コメントを追加"
                     value={comment}
                     fullWidth
                     onChange={handleCommentChange}
-                    style={{ marginBottom: '10px', maxWidth: '800px', margin: 'auto' }}
+                    style={{ marginBottom: '10px', maxWidth: '800px'}}
                 />
+                </div>
+                
                 <Button type="submit" variant="contained" color="primary" sx={{ width: '100px', height: '40px', margin: 'auto', display: 'block', marginTop: '10px' }}>
                     送信
                 </Button>

@@ -7,6 +7,7 @@ import { collection, doc, getDocs , updateDoc, arrayUnion } from "firebase/fires
 import { db, auth } from "../firebaseConfig";
 import { Post } from "../models/Post";
 import { onAuthStateChanged, User } from "firebase/auth";
+import { Link } from "react-router-dom";
 import Comment from "./Comment";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import "../styles/global.css";
@@ -77,7 +78,10 @@ const Search = () => {
                                     {post.caption}
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary">
-                                    Posted by: {users[post.userId]?.displayName || 'Unknown User'}
+                                    Posted by: 
+                                        <Link to={`/profile/${post.userId}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                            {users[post.userId]?.displayName || 'Unknown User'}
+                                        </Link>
                                 </Typography>
                                 <div style={{ display: 'flex', alignItems: 'left', marginTop: '10px' }}>
                                     <Button onClick={() => handleLike(post.id)}  style={{ color: 'red', marginLeft: '10px' }}>

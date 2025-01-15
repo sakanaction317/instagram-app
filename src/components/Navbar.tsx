@@ -75,7 +75,7 @@ const Navbar = () => {
                 </ListItemIcon>
                 <ListItemText primary="プロフィール" />
             </ListItem>
-            <ListItem onClick={handleLogout} sx={{  }}>
+            <ListItem onClick={handleLogout} sx={{ '&:visited' : {color: 'inherit'}, cursor: 'pointer' }}>
                 <ListItemIcon>
                     <LogoutIcon />
                 </ListItemIcon>
